@@ -3,6 +3,8 @@
 A simple CRUD app that uses Lit framework
 
 ## Versions
+
+|        | Version   |
 | Node   | 18.19.1   |
 | Yarn   | 1.22.19   |
 
