@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="sl-theme-dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit + TS</title>
+
     <link rel="stylesheet" href="./src/index.css" />
+
     <script type="module" src="/src/my-element.ts"></script>
     <script type="module" src="/src/crud.ts"></script>
+
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/shoelace.js"
+    ></script>
   </head>
   <body>
-    <crud-element />
+    <div class="container">
+      <crud-element />
+    </div>
   </body>
 </html>

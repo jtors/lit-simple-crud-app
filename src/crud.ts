@@ -1,4 +1,4 @@
-import { LitElement,  html } from "lit";
+import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 // state === state
@@ -20,24 +20,29 @@ export class CRUDElement extends LitElement {
           ${this.list.map((i, idx) => {
             return html`<li>
               <span>${i}</span>
-              <span>
-                <button type="button" @click=${() => this._onEditItem(idx)}>
+              <sl-button-group label="Alignment">
+                <sl-button size="medium" @click=${() => this._onEditItem(idx)}>
                   Edit
-                </button>
-              </span>
-              <span>
-                <button type="button" @click=${() => this._onRemoveItem(idx)}>
+                </sl-button>
+                <sl-button
+                  size="medium"
+                  @click=${() => this._onRemoveItem(idx)}
+                >
                   Delete
-                </button>
-              </span>
+                </sl-button>
+              </sl-button-group>
             </li>`;
           })}
         </ul>
       </div>
       <br />
-      <div>
-        <input type="text" @change=${this._onInputChange} value=${this.item} />
-        <button @click=${this._onSaveItem}>Save</button>
+      <div class="input-form">
+        <sl-input
+          type="text"
+          @sl-change=${this._onInputChange}
+          value=${this.item}
+        ></sl-input>
+        <sl-button @click=${this._onSaveItem}>Save</sl-button>
       </div>
     `;
   }
@@ -66,4 +71,11 @@ export class CRUDElement extends LitElement {
     this.editingIdx = index;
     this.item = this.list[index];
   };
+
+  static styles = css`
+    .input-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+  `;
 }
