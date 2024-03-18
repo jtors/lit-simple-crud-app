@@ -1,12 +1,10 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, PropertyValueMap } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-
-// state === state
-// property === props
 
 @customElement("crud-element")
 export class CRUDElement extends LitElement {
   @property({ type: Array }) basket = ["test", "test2", "test3"];
+  @property({ type: String }) inputId = "input-crud";
 
   @state() private list = this.basket;
   @state() private editingIdx = -1;
@@ -41,10 +39,18 @@ export class CRUDElement extends LitElement {
           type="text"
           @sl-change=${this._onInputChange}
           value=${this.item}
+          id=${this.inputId}
         ></sl-input>
         <sl-button @click=${this._onSaveItem}>Save</sl-button>
       </div>
     `;
+  }
+
+  protected updated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    const inputId = this.shadowRoot?.getElementById(this.inputId);
+    inputId?.focus();
   }
 
   _onInputChange = (e: { target: any }) => {
@@ -55,12 +61,15 @@ export class CRUDElement extends LitElement {
   _onSaveItem = () => {
     if (this.editingIdx > -1) {
       this.list[this.editingIdx] = this.item;
+      this.editingIdx = -1;
       this.requestUpdate();
     } else {
       if (this.item !== "") {
         this.list = this.list.concat(this.item);
       }
     }
+
+    this.item = "";
   };
 
   _onRemoveItem = (index: number) => {
